@@ -73,7 +73,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-transparent text-white selection:bg-[#FFCC00] selection:text-black overflow-x-hidden">
       <SocialMediaPopup />
-      {/* <ContextMenu /> */}
+      <ContextMenu />
       <Navbar />
       <main className="pt-28 pb-24 md:pb-20 lg:pb-20">
         <Routes>
