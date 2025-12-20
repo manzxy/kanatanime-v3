@@ -103,7 +103,9 @@ export interface DetailedAnime extends Anime {
     japanese?: string;
   };
   episodes: DetailedEpisode[];
+  episodeList?: OtakudesuEpisode[];
   recommended?: any[];
+  recommendedAnimeList?: any[];
   batch?: {
     title: string;
     batchId: string;

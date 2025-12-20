@@ -2,11 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Badge from './Badge';
 import { Anime } from '../types';
+import { useFavorites } from '../hooks/useFavorites';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
-const AnimeCard = ({ anime, key }: { anime: Anime, key?: React.Key }) => {
+const AnimeCard = ({ anime }: { anime: Anime }) => {
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const isFav = isFavorite(anime.id);
+
   // Generate a deterministic rotation based on title length to keep it consistent but "random" looking
   const rotation = anime.title.length % 2 === 0 ? 'hover:rotate-1' : 'hover:-rotate-1';
   const badgeRotation = anime.title.length % 2 === 0 ? '-rotate-2' : 'rotate-2';
+
+  const handleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(anime);
+  };
 
   return (
     <Link 
@@ -23,6 +36,17 @@ const AnimeCard = ({ anime, key }: { anime: Anime, key?: React.Key }) => {
           <Badge color="yellow" className="shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">{anime.episode || anime.year}</Badge>
           <Badge color="red" className="translate-x-2 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">{anime.status}</Badge>
         </div>
+
+        {/* Favorite Toggle Button */}
+        <button 
+          onClick={handleFavorite}
+          className={`absolute top-2 right-2 z-20 w-10 h-10 border-4 border-black flex items-center justify-center transition-all shadow-[4px_4px_0px_0px_black] active:translate-x-1 active:translate-y-1 active:shadow-none ${
+            isFav ? 'bg-[#FF3B30] text-white' : 'bg-white text-black hover:bg-[#FFCC00]'
+          }`}
+        >
+          <FontAwesomeIcon icon={isFav ? faHeartSolid : faHeartRegular} />
+        </button>
+
         <div className="absolute bottom-4 -right-2 transform rotate-3 z-10">
           <Badge color="blue" className="shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] border-2">★ {anime.rating.toFixed(1)}</Badge>
         </div>

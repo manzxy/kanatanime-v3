@@ -6,9 +6,11 @@ import Loader from '../components/Loader';
 import Badge from '../components/Badge';
 import Button from '../components/Button';
 import AnimeCard from '../components/AnimeCard';
+import { useFavorites } from '../hooks/useFavorites';
 
 const Home = ({ animes, movies, loading }: { animes: Anime[], movies: Anime[], loading: boolean }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { toggleFavorite, isFavorite } = useFavorites();
   
   const ongoingList = animes.length > 0 ? animes : MOCK_ANIME;
   const completedList = movies;
@@ -118,8 +120,13 @@ const Home = ({ animes, movies, loading }: { animes: Anime[], movies: Anime[], l
               </button>
             </Link>
             <div className="flex gap-4">
-               <button className="flex-1 py-1.5 bg-white text-black font-bold border-4 border-black hover:bg-gray-100 uppercase text-[10px] cursor-pointer">
-                 + My List
+               <button 
+                onClick={() => toggleFavorite(featured)}
+                className={`flex-1 py-1.5 font-bold border-4 border-black uppercase text-[10px] cursor-pointer transition-colors ${
+                  isFavorite(featured.id) ? 'bg-[#FF3B30] text-white' : 'bg-white text-black hover:bg-gray-100'
+                }`}
+               >
+                 {isFavorite(featured.id) ? '✓ In My List' : '+ My List'}
                </button>
                <button className="flex-1 py-1.5 bg-[#007AFF] text-white font-bold border-4 border-black hover:bg-[#0056b3] uppercase text-[10px] cursor-pointer">
                  Trailer
@@ -150,7 +157,7 @@ const Home = ({ animes, movies, loading }: { animes: Anime[], movies: Anime[], l
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-10">
           {ongoingList.map(anime => (
-            <AnimeCard anime={anime} />
+            <AnimeCard key={anime.id} anime={anime} />
           ))}
         </div>
       </section>
@@ -165,7 +172,7 @@ const Home = ({ animes, movies, loading }: { animes: Anime[], movies: Anime[], l
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-10">
           {completedList.map(anime => (
-            <AnimeCard anime={anime} />
+            <AnimeCard key={anime.id} anime={anime} />
           ))}
         </div>
       </section>

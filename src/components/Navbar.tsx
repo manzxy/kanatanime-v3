@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Button from './Button';
 
 const Navbar = () => {
@@ -42,7 +44,8 @@ const Navbar = () => {
             { name: 'ongoing', path: '/ongoing' },
             { name: 'complete', path: '/complete' },
             { name: 'genre', path: '/genre' },
-            { name: 'schedule', path: '/schedule' }
+            { name: 'schedule', path: '/schedule' },
+            { name: 'favorites', path: '/favorites' }
           ].map((item) => (
             <Link 
               key={item.name}
@@ -68,18 +71,9 @@ const Navbar = () => {
              className="w-full bg-white border-4 border-black p-2 px-4 font-black oswald text-black placeholder:text-gray-400 outline-none focus:bg-[#FFCC00] transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] focus:shadow-none focus:translate-x-[4px] focus:translate-y-[4px] text-xs md:text-base"
            />
            <button type="submit" className="absolute right-4 top-1/2 -translate-y-1/2 font-black text-black text-sm md:text-base">
-             🔍
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
            </button>
         </form>
-
-        <div className="hidden md:flex gap-2 md:gap-4 items-center shrink-0">
-          <Link to="/login" className="hover:scale-105 transition-transform">
-            <Button variant="white" className="py-2 px-4 md:px-6 text-xs md:text-sm !border-b-8">Login</Button>
-          </Link>
-          <Link to="/register" className="hidden sm:block hover:scale-105 transition-transform">
-            <Button variant="red" className="py-2 px-4 md:px-6 text-xs md:text-sm !border-b-8">Join</Button>
-          </Link>
-        </div>
       </div>
       
       {/* Decorative bottom element */}

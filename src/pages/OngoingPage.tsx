@@ -74,7 +74,7 @@ const OngoingPage = () => {
         <button 
           onClick={() => setPage(p => Math.max(1, p - 1))}
           disabled={page === 1}
-          className={`px-8 py-3 font-black oswald border-4 border-black shadow-[4px_4px_0px_0px_black] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all ${page === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-white hover:bg-[#FFCC00]'}`}
+          className={`px-8 py-3 font-black oswald border-4 border-black shadow-[4px_4px_0px_0px_black] active:shadow-none active:translate-x-1 text-black active:translate-y-1 transition-all ${page === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-white hover:bg-[#FFCC00]'}`}
         >
           PREV
         </button>
@@ -84,7 +84,7 @@ const OngoingPage = () => {
         <button 
           onClick={() => setPage(p => p + 1)}
           disabled={!hasNextPage}
-          className={`px-8 py-3 font-black oswald border-4 border-black shadow-[4px_4px_0px_0px_black] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all ${!hasNextPage ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#FF3B30] text-white hover:bg-red-600'}`}
+          className={`px-8 py-3 font-black oswald border-4 border-black shadow-[4px_4px_0px_0px_black] active:shadow-none active:translate-x-1 text-black active:translate-y-1 transition-all ${!hasNextPage ? 'bg-gray-300 cursor-not-allowed' : 'bg-[#FF3B30] text-white hover:bg-red-600'}`}
         >
           NEXT
         </button>
