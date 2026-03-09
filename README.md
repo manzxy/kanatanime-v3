@@ -48,7 +48,7 @@ A modern, high-performance anime streaming web application featuring a bold **Ne
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/idlanyor/kanatanime-v3.git
+   git clone git@github.com:idlanyor/kanatanime-v3.git
    cd kanatanime-v3
    ```
 
