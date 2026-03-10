@@ -32,7 +32,6 @@ app.use('*', async (c, next) => {
 })
 app.use('*', logger())
 
-const SANKA_BASE_URL = 'https://www.sankavollerei.com/anime'
 const RYZUMI_BASE_URL = 'https://backend.ryzumi.vip/anime'
 
 // Helper to fetch and stream response
@@ -282,11 +281,9 @@ export default app
 
 // Only run local server when not on Vercel
 if (process.env.VERCEL !== '1') {
-  const { serve } = await import('@hono/node-server')
-  const port = 3051
-  console.log(`Server is running on port ${port}`)
-  serve({
-    fetch: app.fetch,
-    port
+  import('@hono/node-server').then(({ serve }) => {
+    const port = 3051
+    console.log(`Server is running on port ${port}`)
+    serve({ fetch: app.fetch, port })
   })
 }
