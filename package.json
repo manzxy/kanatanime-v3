@@ -23,7 +23,7 @@
     "hls.js": "^1.6.15",
     "hono": "^4.11.4",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^7.11.0",
     "tsx": "^4.21.0"
@@ -31,7 +31,7 @@
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0"
+    "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.4.23",
     "concurrently": "^9.2.1",
