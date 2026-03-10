@@ -1,5 +1,3 @@
-import { serve } from '@hono/node-server'
-import { getConnInfo } from '@hono/node-server/conninfo'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
@@ -26,11 +24,9 @@ const app = new Hono()
 
 app.use('*', cors())
 app.use('*', async (c, next) => {
-  const info = getConnInfo(c)
   const forwarded = c.req.header('x-forwarded-for')
   const realIp = c.req.header('x-real-ip')
-  const socketIp = info.remote.address
-  const ip = forwarded ? forwarded.split(',')[0].trim() : realIp || socketIp || 'unknown'
+  const ip = forwarded ? forwarded.split(',')[0].trim() : realIp || 'unknown'
   console.log(`[request] ip=${ip} method=${c.req.method} path=${c.req.path}`)
   await next()
 })
@@ -281,10 +277,16 @@ app.all('/api/sanka/*', async (c) => {
   return proxyRequest(c, targetUrl)
 })
 
-const port = 3051
-console.log(`Server is running on port ${port}`)
+// Export app for Vercel
+export default app
 
-serve({
-  fetch: app.fetch,
-  port
-})
+// Only run local server when not on Vercel
+if (process.env.VERCEL !== '1') {
+  const { serve } = await import('@hono/node-server')
+  const port = 3051
+  console.log(`Server is running on port ${port}`)
+  serve({
+    fetch: app.fetch,
+    port
+  })
+}
